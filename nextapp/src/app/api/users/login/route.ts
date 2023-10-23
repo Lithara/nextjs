@@ -6,7 +6,11 @@ import jwt from "jsonwebtoken";
 
 connect()
 
-export async function POST(request: NextRequest){
+export async function GET(_request: NextRequest, response: NextResponse){
+    return NextResponse.json({message: "Login route"});
+}
+
+export async function POST(request: NextRequest, response: NextResponse){
     try {
 
         const reqBody = await request.json()
@@ -34,8 +38,10 @@ export async function POST(request: NextRequest){
             username: user.username,
             email: user.email
         }
+
         //create token
         const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {expiresIn: "1d"})
+        console.log(token);
 
         const response = NextResponse.json({
             message: "Login successful",
@@ -51,3 +57,27 @@ export async function POST(request: NextRequest){
         return NextResponse.json({error: error.message}, {status: 500})
     }
 }
+
+// export async function POST(request: NextRequest, response: NextResponse){
+//     try {
+//         const reqBody = await request.json();
+//         const {email, password} = reqBody;
+//         console.log(reqBody);
+
+//     } catch (error: any) {
+//         return NextResponse.json({error: error.message}, {status: 500});
+//     }
+// }
+
+// const loginRoute = async (req:Request, res:Response) => {
+//     try {
+//         const reqBody = await req.json();
+        
+//         console.log(reqBody);
+
+//     } catch (error: any) {
+//         return NextResponse.json({error: error.message}, {status: 500});
+//     }
+// }
+
+// export {loginRoute as POST}
