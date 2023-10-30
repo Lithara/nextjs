@@ -25,5 +25,3 @@ export const config = {
     '/signup',
   ]
 }
-
-//2:21:50
