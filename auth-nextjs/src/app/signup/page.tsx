@@ -12,9 +12,17 @@ export default function SignupPage() {
     username: "",
   });
   const [buttonDisabled, setButtonDisabled] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const onSignup = async () => {
-
+    try {
+      const response = await axios.post("/api/signup", user);
+      if (response.status === 200) {
+        router.push("/login");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
